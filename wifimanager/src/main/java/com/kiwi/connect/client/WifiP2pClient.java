@@ -55,7 +55,6 @@ public class WifiP2pClient extends WifiClient implements WifiP2pManager.Connecti
         WifiP2pManager.DnsSdTxtRecordListener txtListener = new WifiP2pManager.DnsSdTxtRecordListener() {
             @Override
             public void onDnsSdTxtRecordAvailable(String fullDomain, Map record, WifiP2pDevice device) {
-                Log.e("tag", "onDnsSdTxtRecordAvailable:------ " + fullDomain + "--" + device + "--" + record);
 
                 for (Object m : record.entrySet()) {
                     Map.Entry<String, String> entry = ((Map.Entry<String, String>) m);
@@ -76,12 +75,10 @@ public class WifiP2pClient extends WifiClient implements WifiP2pManager.Connecti
         mManager.addServiceRequest(mChannel, serviceRequest, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
-                Log.e(TAG, "addServiceRequest-----: ");
             }
 
             @Override
             public void onFailure(int code) {
-                Log.e(TAG, "addServiceRequest---onFailure--: " + code);
             }
         });
         //开始搜索
@@ -89,19 +86,12 @@ public class WifiP2pClient extends WifiClient implements WifiP2pManager.Connecti
 
             @Override
             public void onSuccess() {
-                //开始搜索可以打开对话框
-                Log.e(TAG, "discoverServices-----: onSuccess");
-
                 WifiP2pClient.this.clientCallBack.startDiscover();
             }
 
             @Override
             public void onFailure(int code) {
-                Log.e(TAG, "discoverServices-----: onFailure");
-
-//                searchFailed("discoverServices failure " + code);
-
-                WifiP2pClient.this.clientCallBack.onFailed("discoverServices onFailure",code);
+                WifiP2pClient.this.clientCallBack.onFailed("discoverServices onFailure", code);
             }
         });
     }
@@ -124,12 +114,10 @@ public class WifiP2pClient extends WifiClient implements WifiP2pManager.Connecti
 
                         @Override
                         public void onSuccess() {
-                            Log.e(TAG, "removeServiceRequest to onSuccess");
                         }
 
                         @Override
                         public void onFailure(int arg0) {
-                            Log.e(TAG, "removeServiceRequest to onFailure");
                         }
                     });
         //会触发广播，广播会触发onConnectionInfoAvailable的回调
@@ -137,13 +125,11 @@ public class WifiP2pClient extends WifiClient implements WifiP2pManager.Connecti
 
             @Override
             public void onSuccess() {
-                Log.e(TAG, "Connecting to service");
             }
 
             @Override
             public void onFailure(int errorCode) {
-                Log.e(TAG, "Connecting-----: onFailure");
-                WifiP2pClient.this.clientCallBack.onFailed("connect onFailure" , errorCode);
+                WifiP2pClient.this.clientCallBack.onFailed("connect onFailure", errorCode);
             }
         });
     }
@@ -169,14 +155,11 @@ public class WifiP2pClient extends WifiClient implements WifiP2pManager.Connecti
 
                 @Override
                 public void onFailure(int reasonCode) {
-                    Log.d(TAG, "removeGroup onFailure. Reason :" + reasonCode);
-                    //guess the remove method not working. so delete the persistentGroup
                     deletePersistentGroups();
                 }
 
                 @Override
                 public void onSuccess() {
-                    Log.d(TAG, "removeGroup onSuccess. Reason :");
                 }
             });
         }
@@ -194,9 +177,7 @@ public class WifiP2pClient extends WifiClient implements WifiP2pManager.Connecti
                     }
                 }
             }
-            Log.d(TAG, "deletePersistentGroups onSuccess. Reason :");
         } catch (Exception e) {
-            Log.d(TAG, "deletePersistentGroups Exception. Reason :");
             e.printStackTrace();
         }
     }
@@ -215,19 +196,13 @@ public class WifiP2pClient extends WifiClient implements WifiP2pManager.Connecti
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            Log.e("tag", "onReceive: ------------  " + action);
-
             if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
                 if (mManager == null) {
                     return;
                 }
                 NetworkInfo networkInfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
-
                 if (networkInfo.isConnected()) {
-                    Log.e("tag", "onReceive: ------------  true");
                     mManager.requestConnectionInfo(mChannel, listener);
-                } else {
-                    Log.e("tag", "onReceive: ------------  false");
                 }
             }
         }

@@ -33,24 +33,20 @@ public class WifiNsdClient extends WifiClient {
     private NsdManager.DiscoveryListener nsDicListener = new NsdManager.DiscoveryListener() {
         @Override
         public void onDiscoveryStarted(String serviceType) {
-            Log.e(TAG, "Discovery Started");
             WifiNsdClient.this.clientCallBack.startDiscover();
         }
 
         @Override
         public void onStopDiscoveryFailed(String serviceType, int errorCode) {
-            Log.e(TAG, "Stop Discovery Failed");
         }
 
         @Override
         public void onStartDiscoveryFailed(String serviceType, int errorCode) {
-            Log.e(TAG, "");
-            WifiNsdClient.this.clientCallBack.onFailed("Start Discovery Failed",errorCode);
+            WifiNsdClient.this.clientCallBack.onFailed("Start Discovery Failed", errorCode);
         }
 
         @Override
         public void onServiceLost(NsdServiceInfo serviceInfo) {
-            Log.e(TAG, "Service Lost");
         }
 
         @Override
@@ -63,15 +59,13 @@ public class WifiNsdClient extends WifiClient {
 
         @Override
         public void onDiscoveryStopped(String serviceType) {
-            Log.e(TAG, "Discovery Stopped");
         }
     };
 
     private NsdManager.ResolveListener resolveListener = new NsdManager.ResolveListener() {
         @Override
         public void onResolveFailed(NsdServiceInfo nsdServiceInfo, int i) {
-            Log.e(TAG, "");
-            WifiNsdClient.this.clientCallBack.onFailed("resolve failed",i);
+            WifiNsdClient.this.clientCallBack.onFailed("resolve failed", i);
         }
 
         @Override

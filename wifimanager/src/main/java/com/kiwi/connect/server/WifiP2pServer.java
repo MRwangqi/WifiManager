@@ -55,14 +55,12 @@ public class WifiP2pServer extends WifiServer {
             mManager.removeGroup(mChannel, new WifiP2pManager.ActionListener() {
                 @Override
                 public void onFailure(int reasonCode) {
-                    Log.e("TAG", "Disconnect failed. Reason :" + reasonCode);
                     //guess the remove method not working. so delete the persistentGroup
                     deletePersistentGroups();
                 }
 
                 @Override
                 public void onSuccess() {
-                    Log.e("TAG", "Disconnect succeed");
                 }
 
             });
@@ -81,9 +79,7 @@ public class WifiP2pServer extends WifiServer {
                     }
                 }
             }
-            Log.e("TAG", "deletePersistentGroups onSuccess. Reason :");
         } catch (Exception e) {
-            Log.e("TAG", "deletePersistentGroups Exception. Reason :");
             e.printStackTrace();
         }
     }

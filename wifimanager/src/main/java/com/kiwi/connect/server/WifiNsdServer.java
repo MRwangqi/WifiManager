@@ -46,24 +46,20 @@ public class WifiNsdServer extends WifiServer {
             @Override
             public void onServiceRegistered(NsdServiceInfo NsdServiceInfo) {
                 String mServiceName = NsdServiceInfo.getServiceName();
-                Log.e(TAG, "Registered service. Actual name used: " + mServiceName);
                 WifiNsdServer.this.callBack.onSuccess();
             }
 
             @Override
             public void onRegistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
-                Log.e(TAG, "Failed to register service");
                 WifiNsdServer.this.callBack.onError(String.valueOf(errorCode));
             }
 
             @Override
             public void onServiceUnregistered(NsdServiceInfo arg0) {
-                Log.e(TAG, "Unregistered service");
             }
 
             @Override
             public void onUnregistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
-                Log.e(TAG, "Service unregistration failed");
             }
         };
         mNsdManager.registerService(serviceInfo, NsdManager.PROTOCOL_DNS_SD, mRegistrationListener);
