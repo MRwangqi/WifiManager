@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:onClick="nsdSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="nsd搜索" />
+
+    <Button
+        android:onClick="p2pSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="p2p搜索" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <Button
+        android:onClick="nsdServer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="nsd服务" />
+
+    <Button
+        android:onClick="p2pServer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="p2p服务" />
+</LinearLayout>
